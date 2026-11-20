@@ -5,7 +5,7 @@
 <!-- sdlc:auto:start overview -->
 A tiny demo web app with exactly one feature: a public Hello page that shows a greeting message loaded from the backend endpoint GET /api/hello, which returns {"message": "Hello from Quorq"}. No sign-in, no database tables, no other pages or features. It is only a smoke test of the delivery pipeline, so keep it to a single user story.
 
-**Documentation version:** v2
+**Documentation version:** v3
 <!-- sdlc:auto:end overview -->
 
 ## Contents
@@ -15,7 +15,7 @@ A tiny demo web app with exactly one feature: a public Hello page that shows a g
 |---|---|
 | [Requirements](requirements/README.md) | v1 approved |
 | [Architecture](architecture/README.md) | 6 entries |
-| [Planning](planning/README.md) | 1 entry |
+| [Planning](planning/README.md) | 2 entries |
 | [Development](development/README.md) | 0 entries |
 | [Testing](testing/README.md) | 0 entries |
 | [Deployment](deployment/README.md) | 0 entries |
@@ -32,5 +32,5 @@ A tiny demo web app with exactly one feature: a public Hello page that shows a g
 | [Runbook](deployment/runbook.md) | not deployed yet |
 | [Release notes](deployment/release-notes.md) | 0 releases |
 | [Traceability matrix](traceability-matrix.md) | 1 requirement |
-| [Changelog](CHANGELOG.md) | 2 versions |
+| [Changelog](CHANGELOG.md) | 3 versions |
 <!-- sdlc:auto:end contents -->
