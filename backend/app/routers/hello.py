@@ -1,10 +1,4 @@
-"""Greeting service router.
-
-Owns the public GET /api/hello endpoint declared by the approved API spec. The
-scaffold ships this as a stub returning a typed placeholder, so the service
-starts and serves a complete OpenAPI document before the handler is implemented;
-the sprint ticket replaces it with the real greeting response.
-"""
+"""GET /api/hello greeting endpoint."""
 
 from fastapi import APIRouter
 

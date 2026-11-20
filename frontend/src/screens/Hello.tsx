@@ -1,12 +1,10 @@
 // @ts-nocheck -- generated from the approved design under its JS runtime contract; not hand-written TypeScript.
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 
 import { apiFetch } from "@/lib/api";
 import { brand } from "@/lib/brand";
 
 const PRODUCT = "Hello App";
-const SCREEN = "Hello Page";
 
 const FALLBACK = "Unable to load greeting at this time.";
 const LOADING_LABEL = "Fetching greeting from backend…";
@@ -22,7 +20,6 @@ export default function Screen() {
   const [status, setStatus] = React.useState("loading"); // loading | success | error
   const [message, setMessage] = React.useState("");
   const rule = `2px solid ${brand.primaryColor}`;
-  const hair = `1px solid ${brand.primaryColor}`;
   const labelCls = "text-[11px] font-bold uppercase tracking-[0.18em]";
 
   React.useEffect(() => {
