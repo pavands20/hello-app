@@ -7,6 +7,12 @@ generated route returns until it has been implemented.
 from pydantic import BaseModel
 
 
+class HelloResponse(BaseModel):
+    """Response body for the public GET /api/hello endpoint."""
+
+    message: str
+
+
 class StubResponse(BaseModel):
     """What a generated route returns until someone implements it.
 

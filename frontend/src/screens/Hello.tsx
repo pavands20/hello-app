@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 
+import { apiFetch } from "@/lib/api";
 import { brand } from "@/lib/brand";
 
 const PRODUCT = "Hello App";
@@ -9,7 +10,7 @@ const SCREEN = "Hello Page";
 
 const FALLBACK = "Unable to load greeting at this time.";
 const LOADING_LABEL = "Fetching greeting from backend…";
-const API_NOTE = 'GET /api/hello — returns {"message": "Hello from Quorq"}';
+const API_NOTE = "GET /api/hello — public endpoint, no auth required";
 
 const keyframes = `
 @keyframes obsidian-pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
@@ -25,13 +26,21 @@ export default function Screen() {
   const labelCls = "text-[11px] font-bold uppercase tracking-[0.18em]";
 
   React.useEffect(() => {
-    // Simulate GET /api/hello — no server in the sandbox.
-    // In production this would be: fetch("/api/hello").then(r => r.json()).then(d => setMessage(d.message))
-    const timer = setTimeout(() => {
-      setMessage("Hello from Quorq");
-      setStatus("success");
-    }, 650);
-    return () => clearTimeout(timer);
+    let cancelled = false;
+    // GET /api/hello — public endpoint, no auth. Returns {"message": "Hello from Quorq"}.
+    apiFetch<{ message: string }>("/api/hello")
+      .then((data) => {
+        if (cancelled) return;
+        setMessage(data.message);
+        setStatus("success");
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setStatus("error");
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -40,15 +49,23 @@ export default function Screen() {
 
       {/* Row 1 — page title (12/12) */}
       <div data-wf="b-0-0" className="pb-4" style={{ borderBottom: rule }}>
-        <p className={labelCls} style={{ color: brand.neutralColor }}>{PRODUCT}</p>
-        <h1 data-wf="b-0-0" className="mt-1 text-3xl font-bold tracking-tight" style={{ fontFamily: brand.fontHeading }}>
+        <p className={labelCls} style={{ color: brand.neutralColor }}>
+          {PRODUCT}
+        </p>
+        <h1
+          data-wf="b-0-0"
+          className="mt-1 text-3xl font-bold tracking-tight"
+          style={{ fontFamily: brand.fontHeading }}
+        >
           Hello Page
         </h1>
       </div>
 
       {/* Row 2 — greeting text (12/12) */}
       <div data-wf="b-1-0" className="py-10" style={{ borderBottom: rule }}>
-        <p className={labelCls + " mb-3"} style={{ color: brand.neutralColor }}>Greeting</p>
+        <p className={labelCls + " mb-3"} style={{ color: brand.neutralColor }}>
+          Greeting
+        </p>
 
         {status === "loading" ? (
           <p
@@ -83,8 +100,13 @@ export default function Screen() {
 
       {/* Row 3 — fallback description (12/12) */}
       <div data-wf="b-2-0" className="py-6">
-        <p data-wf="b-2-0" className="text-sm" style={{ color: brand.neutralColor, maxWidth: "70ch" }}>
-          If the greeting cannot be loaded from the backend, this area shows a fallback message: "Unable to load greeting at this time."
+        <p
+          data-wf="b-2-0"
+          className="text-sm"
+          style={{ color: brand.neutralColor, maxWidth: "70ch" }}
+        >
+          If the greeting cannot be loaded from the backend, this area shows a fallback message in
+          place of the greeting above.
         </p>
         <p className={labelCls + " mt-4"} style={{ color: brand.neutralColor }}>
           <span style={{ fontFamily: brand.fontBody }}>{API_NOTE}</span>

@@ -8,15 +8,12 @@ the sprint ticket replaces it with the real greeting response.
 
 from fastapi import APIRouter
 
-from app.schemas import StubResponse
+from app.schemas import HelloResponse
 
 router = APIRouter(prefix="/api", tags=["hello"])
 
 
-@router.get("/hello", response_model=StubResponse)
-async def get_hello() -> StubResponse:
-    """Return the greeting message.
-
-    Scaffolded stub: returns a placeholder until the handler is implemented.
-    """
-    return StubResponse(endpoint="/api/hello")
+@router.get("/hello", response_model=HelloResponse)
+async def get_hello() -> HelloResponse:
+    """Return the greeting message."""
+    return HelloResponse(message="Hello from Quorq")
