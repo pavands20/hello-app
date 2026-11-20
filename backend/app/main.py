@@ -15,6 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app import models  # noqa: F401 -- imported so the tables register before create_all
 from app.database import Base, engine
+from app.routers import hello as hello_router
 
 
 @asynccontextmanager
@@ -34,7 +35,13 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(
     title="Hello App",
-    description="A tiny demo web app with exactly one feature: a public Hello page that shows a greeting message loaded from the backend endpoint GET /api/hello, which returns {\"message\": \"Hello from Quorq\"}. No sign-in, no database tables, no other pages or features. It is only a smoke test of the delivery pipeline, so keep it to a single user story.",
+    description=(
+        "A tiny demo web app with exactly one feature: a public Hello page that shows a "
+        "greeting message loaded from the backend endpoint GET /api/hello, which returns "
+        '{"message": "Hello from Quorq"}. No sign-in, no database tables, no other pages '
+        "or features. It is only a smoke test of the delivery pipeline, so keep it to a "
+        "single user story."
+    ),
     version="0.1.0",
     lifespan=lifespan,
 )
@@ -52,6 +59,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(hello_router.router)
 
 
 @app.get("/health")

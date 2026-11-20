@@ -11,8 +11,7 @@
 // The generated screens do NOT use this yet -- they render seeded sample data, exactly as
 // they were approved. This is the seam to replace that with real calls, one screen at a
 // time.
-export const API_BASE_URL: string =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+export const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 // The shared bearer the deployed API expects (its SECRET_KEY): the project id, not a
 // secret. The platform bakes the same value into both sides at deploy time, so
@@ -56,13 +55,20 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
   // Join with exactly one slash: API_BASE_URL is baked with a trailing slash (the API
   // sits behind a /apps/<slug>/ path prefix) and paths start with "/", so a naive
   // concat yields "...//auth/me", which a path-prefix proxy need not route.
+  // Build headers from a HeadersInit (plain object or Headers instance) rather than
+  // spreading, so a caller that passes a Headers instance is handled correctly. Only add
+  // a default Content-Type when there is a request body, and only when the caller did not
+  // already set one. Caller-supplied headers win over the defaults below.
+  const headers = new Headers(init?.headers);
+  if (bearer && !headers.has("Authorization")) {
+    headers.set("Authorization", `Bearer ${bearer}`);
+  }
+  if (init?.body != null && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
   const response = await fetch(`${API_BASE_URL.replace(/\/+$/, "")}${path}`, {
     ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(bearer ? { Authorization: `Bearer ${bearer}` } : {}),
-      ...(init?.headers ?? {}),
-    },
+    headers,
   });
   if (!response.ok) {
     throw new Error(`${init?.method ?? "GET"} ${path} failed: ${response.status}`);

@@ -19,7 +19,12 @@ DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./app.db")
 # exactly what happens when FastAPI runs a sync dependency in its threadpool.
 _connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
-engine = create_engine(DATABASE_URL, connect_args=_connect_args, future=True)
+engine = create_engine(
+    DATABASE_URL,
+    connect_args=_connect_args,
+    pool_pre_ping=True,
+    future=True,
+)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 
 
