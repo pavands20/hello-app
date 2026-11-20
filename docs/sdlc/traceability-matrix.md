@@ -9,5 +9,5 @@ Built from recorded links, not written by a model: requirement key → plan item
 <!-- sdlc:auto:start matrix -->
 | Requirement | Epic | Title | Plan items | Sprint | Design | Code | Commits | Ticket | Tests | AC tests | Deployed |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| US-001 | EPIC-001 | View greeting on the public Hello page | US-001 | 1 | GET /api/hello, api, frontend | — | — | not started | not run | 0/5 tested · 0/5 passing | — |
+| US-001 | EPIC-001 | View greeting on the public Hello page | US-001 | 1 | GET /api/hello, api, frontend | — | — | planned | not run | 0/5 tested · 0/5 passing | — |
 <!-- sdlc:auto:end matrix -->
