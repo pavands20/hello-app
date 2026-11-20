@@ -13,6 +13,16 @@ Capacity: 20 points · Committed: 3
 |---|---|---|---|---|---|
 | US-001 | Story | View greeting on the public Hello page | 3 | backend-agent | — |
 
+## Sprint 2: Fixes
+
+Fix the findings SonarQube reported.
+
+Capacity: 0 points · Committed: 0
+
+| Key | Type | Title | Points | Role | Depends on |
+|---|---|---|---|---|---|
+| FIX-SEC-docker-s8544-82cfea7f | Story | Fix: Using dependencies without locking resolved versions is security-sensitive. (backend/Dockerfile) | — | — | — |
+
 ## Unscheduled
 
 _Nothing unscheduled._

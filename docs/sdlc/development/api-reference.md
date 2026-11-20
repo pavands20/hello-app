@@ -5,15 +5,14 @@
 <!-- sdlc:auto:start endpoints -->
 | Method | Path | Handler | Source | Summary |
 |---|---|---|---|---|
-| GET | /health | health | `backend/app/main.py:57` | Liveness probe, and the only route here that is not a stub. |
+| GET | /api/hello | get_hello | `backend/app/routers/hello.py:10` | Return the greeting message. |
+| GET | /health | health | `backend/app/main.py:66` | Liveness probe, and the only route here that is not a stub. |
 <!-- sdlc:auto:end endpoints -->
 
 <!-- sdlc:auto:start drift -->
-**Designed but missing:**
-
-- GET /api/hello
+_Code matches the designed API._
 <!-- sdlc:auto:end drift -->
 
 <!-- sdlc:auto:start source -->
-Generated from commit `0652ac5`
+Generated from commit `ecf6c80`
 <!-- sdlc:auto:end source -->
