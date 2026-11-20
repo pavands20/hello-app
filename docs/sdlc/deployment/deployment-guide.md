@@ -7,7 +7,11 @@ Pushes to `main` run `.github/workflows/deploy.yml`, which builds the API image 
 <!-- sdlc:auto:end how-it-deploys -->
 
 <!-- sdlc:auto:start environments -->
-_No environments recorded._
+| Name | Service | Runtime | Scaling | Environment |
+|---|---|---|---|---|
+| SPA Hosting | AWS S3 + CloudFront | Static file hosting (React 19 build output) | CDN-managed, auto-scales | dev |
+| API Service | AWS ECS Fargate | FastAPI 0.115 behind Application Load Balancer, uvicorn server | Single task for smoke test | dev |
+| Database Instance | AWS RDS PostgreSQL 16 | Managed PostgreSQL instance | Single instance, provisioned but unused | dev |
 <!-- sdlc:auto:end environments -->
 
 <!-- sdlc:auto:start live -->
@@ -15,5 +19,12 @@ _Not deployed yet._
 <!-- sdlc:auto:end live -->
 
 <!-- sdlc:auto:start topology -->
-_No deployment topology recorded._
+```mermaid
+graph LR
+  n_SPA_Hosting["SPA Hosting<br/>AWS S3 + CloudFront"]
+  n_API_Service["API Service<br/>AWS ECS Fargate"]
+  n_Database_Instance["Database Instance<br/>AWS RDS PostgreSQL 16"]
+  n_SPA_Hosting -->|"HTTPS"| n_API_Service
+  n_API_Service -->|"TCP (unused)"| n_Database_Instance
+```
 <!-- sdlc:auto:end topology -->
